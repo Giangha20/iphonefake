@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>iOS 26 UI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="iphone">
+
+  <!-- DYNAMIC ISLAND -->
+  <div class="dynamic-island" id="dynamicIsland">
+    <div class="island-content">
+      <span id="islandText">Safari</span>
+    </div>
+  </div>
+
+  <!-- HOME SCREEN -->
+  <div class="screen" id="home">
+    <div class="apps">
+      <div class="app" data-app="Settings">⚙️<span>Cài đặt</span></div>
+      <div class="app" data-app="Phone">📞<span>Phone</span></div>
+      <div class="app" data-app="Messages">💬<span>Messages</span></div>
+      <div class="app" data-app="Safari">🌐<span>Safari</span></div>
+      <div class="app" data-app="Music">🎵<span>Music</span></div>
+    </div>
+
+    <!-- DOCK -->
+    <div class="dock">
+      <div class="app dock-app" data-app="Phone">📞</div>
+      <div class="app dock-app" data-app="Safari">🌐</div>
+      <div class="app dock-app" data-app="Messages">💬</div>
+      <div class="app dock-app" data-app="Music">🎵</div>
+    </div>
+
+    <div class="home-indicator"></div>
+  </div>
+
+  <!-- APP VIEW -->
+  <div class="app-view" id="appView">
+
+    <!-- SAFARI -->
+    <div class="safari-app hidden" id="safariApp">
+      <div class="safari-bar">
+        <input type="text" id="urlInput" placeholder="Tìm kiếm hoặc nhập URL">
+        <button id="goBtn">Tìm kiếm</button>
+      </div>
+      <iframe id="browser" src="https://example.com"></iframe>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="settings-app hidden" id="settingsApp">
+      <div class="settings-search">
+        <input type="text" id="settingsSearch" placeholder="Tìm kiếm">
+      </div>
+
+      <div class="apple-id">
+        <div class="avatar"></div>
+        <div>
+          <div class="apple-name">Giang</div>
+          <div class="apple-sub">Apple ID · iCloud · Media</div>
+        </div>
+      </div>
+
+      <div class="settings-list">
+        <div class="settings-item">
+          <span>Wi-Fi</span>
+          <div class="right">
+            <span class="status" id="wifiStatus">Không</span>
+            <label class="switch">
+              <input type="checkbox" id="wifiToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <span>Bluetooth</span>
+          <div class="right">
+            <span class="status" id="btStatus">Tắt</span>
+            <label class="switch">
+              <input type="checkbox" id="btToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <span>Chế độ tối</span>
+          <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item disabled">
+          <span>Phiên bản</span>
+          <span>iOS 26</span>
+        </div>
+      </div>
+    </div>
+
+    <h1 id="appTitle">App</h1>
+    <div class="home-indicator app-indicator"></div>
+
+    <!-- APP SWITCHER -->
+    <div class="app-switcher" id="appSwitcher">
+      <div class="app-card active-card" id="currentAppCard">
+        <span id="switcherTitle">App</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

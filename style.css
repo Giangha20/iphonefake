@@ -1,0 +1,454 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #111, #000);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* IPHONE FORM */
+.iphone {
+  width: 390px;
+  height: 844px;
+  background: black;
+  border-radius: 50px;
+  padding: 14px;
+  position: relative;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+}
+
+/* SCREEN */
+.screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  padding: 80px 18px 40px;
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+  position: relative;
+  overflow: hidden;
+}
+
+/* APP GRID */
+.apps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  justify-items: center; /* FIX tablet feel */
+}
+
+.app {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(14px);
+  color: white;
+  font-size: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.app:active {
+  transform: scale(0.88);
+}
+
+.app span {
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+/* DOCK */
+.dock {
+  position: absolute;
+  bottom: 70px;
+  left: 20px;
+  right: 20px;
+  height: 88px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dock .app {
+  background: none;
+}
+
+/* HOME INDICATOR (GESTURE ZONE) */
+.home-indicator {
+  width: 140px;
+  height: 24px;
+  background: transparent;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.home-indicator::after {
+  content: '';
+  width: 120px;
+  height: 5px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 3px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* APP VIEW */
+.app-view {
+  position: absolute;
+  inset: 15px;
+  border-radius: 35px;
+  background: white;
+  transform: scale(0.2);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(.22,1,.36,1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.app-view.active {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* HOME INDICATOR TRONG APP */
+.app-indicator::after {
+  background: rgba(0,0,0,0.4);
+}
+
+/* SAFARI APP */
+.safari-app {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.safari-app.hidden {
+  display: none;
+}
+
+.safari-bar {
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  background: #f5f5f7;
+}
+
+.safari-bar input {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.safari-bar button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #007aff;
+  color: white;
+  cursor: pointer;
+}
+
+/* SAFARI IFRAME – MOBILE FULLSCREEN */
+.safari-app iframe {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+/* DYNAMIC ISLAND */
+.dynamic-island {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 125px;
+  height: 36px;
+  background: black;
+  border-radius: 20px;
+  z-index: 50;
+  transition: all 0.4s cubic-bezier(.22,1,.36,1);
+}
+
+.dynamic-island.active {
+  width: 220px;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.island-content {
+  color: white;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dynamic-island.active .island-content {
+  opacity: 1;
+}
+/* ===== APP SWITCHER (MULTITASK) ===== */
+.app-switcher {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 100;
+}
+
+.app-switcher.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app-card {
+  width: 260px;
+  height: 460px;
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transform: scale(0.85);
+  transition: transform 0.4s ease;
+}
+
+.app-card.active-card {
+  transform: scale(1);
+}
+/* ===== OFFSET DYNAMIC ISLAND XUỐNG THÊM ===== */
+.dynamic-island {
+  top: 26px; /* trước là 14px */
+}
+/* ===== SAFARI SEARCH BAR XUỐNG THẤP HƠN ===== */
+.safari-bar {
+  margin-top: 18px;
+}
+/* ===== SAFE AREA GIẢ LẬP CHO SAFARI ===== */
+.safari-app {
+  padding-top: 20px;
+}
+/* ===== SETTINGS APP ===== */
+.settings-app {
+  position: absolute;
+  inset: 0;
+  background: #f2f2f7;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-app.hidden {
+  display: none;
+}
+
+.settings-header {
+  padding: 22px;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.settings-list {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.settings-item.disabled {
+  opacity: 0.6;
+}
+
+/* ===== TOGGLE SWITCH (iOS STYLE) ===== */
+.switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: 2px;
+  left: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  background: #34c759;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+/* ===== SETTINGS SEARCH ===== */
+.settings-search {
+  padding: 12px;
+  background: #f2f2f7;
+}
+
+.settings-search input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: #e5e5ea;
+  font-size: 15px;
+}
+
+/* ===== APPLE ID ===== */
+.apple-id {
+  background: white;
+  margin: 12px;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apple-name {
+  font-weight: 600;
+}
+
+.apple-sub {
+  font-size: 13px;
+  color: gray;
+}
+
+/* ===== SETTINGS SCROLL ===== */
+.settings-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* RIGHT SIDE */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status {
+  font-size: 13px;
+  color: gray;
+}
+/* ===== FIX SETTINGS TRẮNG ===== */
+.settings-app {
+  height: 100%;
+  width: 100%;
+}
+.settings-app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* ===== FIX TRÙNG SETTINGS-APP (KHÔNG PHÁ HTML) ===== */
+
+/* div settings-app lồng bên trong */
+.settings-app .settings-app {
+  display: contents; /* bung nội dung ra như iOS */
+}
+
+/* đảm bảo settings luôn full app-view */
+.settings-app {
+  position: absolute;
+  inset: 0;
+  background: #f2f2f7;
+  z-index: 10;
+}
+/* ===== SAFE AREA CHO SETTINGS ===== */
+.settings-app {
+  padding-top: 60px;
+}
+
+/* ===== SAFE AREA CHO APP SWITCHER ===== */
+.app-switcher {
+  padding-top: 60px;
+  box-sizing: border-box;
+}
+
+/* (optional) đẹp hơn */
+.app-card {
+  margin-top: 20px;
+}
+/* ===== KHÔNG HIỆN ĐA NHIỆM TRONG SETTINGS ===== */
+.app-view.in-settings .app-switcher {
+  display: none !important;
+}
